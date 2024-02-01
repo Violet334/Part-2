@@ -8,6 +8,10 @@ using Random = UnityEngine.Random;
 
 public class Plane : MonoBehaviour
 {
+    public float playerScore = 0;
+    bool landed = false;
+    public Collider2D runway;
+
     public List<Sprite> planes;
     SpriteRenderer spriteRenderer;
 
@@ -23,6 +27,8 @@ public class Plane : MonoBehaviour
 
     private void Start()
     {
+        runway = GetComponent<Collider2D>();
+
         transform.position = new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), 0);
         transform.rotation = Quaternion.Euler(0,0,Random.Range(0, 360));
         speed = Random.Range(1, 3);
@@ -38,7 +44,7 @@ public class Plane : MonoBehaviour
 
     private void FixedUpdate()
     {
-        currentPosition = transform.position;
+            currentPosition = transform.position;
         if(points.Count > 0 )
         {
             Vector2 direction = points[0] - currentPosition;
@@ -50,8 +56,18 @@ public class Plane : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKey(KeyCode.Space))
+        Collider2D plane = Physics2D.OverlapPoint(transform.position);
+        if (plane == runway)
         {
+            landed = true;
+        }
+        else
+        {
+            landed = false;
+        }
+        if (landed = true)
+        {
+            playerScore += 1;
             landingTimer += 0.5f * Time.deltaTime;
             float interpolation = landing.Evaluate(landingTimer);
             if (transform.localScale.z < 0.1f)
@@ -60,7 +76,18 @@ public class Plane : MonoBehaviour
             }
             transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, interpolation);
         }
-        lineRenderer.SetPosition(0, transform.position);
+
+            /*if(Input.GetKey(KeyCode.Space))
+            {
+                landingTimer += 0.5f * Time.deltaTime;
+                float interpolation = landing.Evaluate(landingTimer);
+                if (transform.localScale.z < 0.1f)
+                {
+                    Destroy(gameObject);
+                }
+                transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, interpolation);
+            }*/
+            lineRenderer.SetPosition(0, transform.position);
         if (points.Count > 0 )
         {
             if(Vector2.Distance(transform.position, points[0]) < newPositionThreshold)
