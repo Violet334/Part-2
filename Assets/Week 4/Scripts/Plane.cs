@@ -1,21 +1,34 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Plane : MonoBehaviour
 {
+    public List<Sprite> planes;
+    SpriteRenderer spriteRenderer;
+
     public List<Vector2> points;
     public float newPositionThreshold = 0.2f;
     Vector2 lastPosition;
     LineRenderer lineRenderer;
     Vector2 currentPosition;
+    float speed;
     Rigidbody2D rigidbody;
-    public float speed = 1;
     public AnimationCurve landing;
     float landingTimer;
 
     private void Start()
     {
+        transform.position = new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), 0);
+        transform.rotation = Quaternion.Euler(0,0,Random.Range(0, 360));
+        speed = Random.Range(1, 3);
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = planes[Random.Range(0, 4)];
+
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 1;
         lineRenderer.SetPosition(0, transform.position);
