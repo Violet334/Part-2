@@ -28,6 +28,7 @@ public class Plane : MonoBehaviour
         speed = Random.Range(1, 3);
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = planes[Random.Range(0, 4)];
+        spriteRenderer.color = Color.white;
 
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 1;
@@ -73,6 +74,16 @@ public class Plane : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        spriteRenderer.color = Color.red;
+        if (Vector3.Distance(transform.position, collision.transform.position) < 0.08)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void OnMouseDown()
     {
         points = new List<Vector2>();
