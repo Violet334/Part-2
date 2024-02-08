@@ -49,8 +49,7 @@ public class Knight : MonoBehaviour
         if (isDead) return;
 
         clickSelf = true;
-        TakeDamage(1);
-        healthBar.TakeDamage(1);
+        SendMessage("TakeDamage", 1);
     }
     private void OnMouseUp()
     {
