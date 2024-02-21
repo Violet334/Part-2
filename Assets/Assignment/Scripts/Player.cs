@@ -42,4 +42,10 @@ public class NewBehaviourScript : MonoBehaviour
         }
         animator.SetFloat("move", movement.magnitude);
     }
+
+    public void hurt()
+    {
+        //play hurt animation
+        animator.SetTrigger("hurt");
+    }
 }
