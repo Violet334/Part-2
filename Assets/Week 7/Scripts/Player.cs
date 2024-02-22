@@ -7,9 +7,12 @@ public class Player : MonoBehaviour
     public SpriteRenderer player;
     public Color selected;
     public Color unselected;
+    Rigidbody2D rb;
+    public float speed = 1000;
     private void Start()
     {
         player = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
         Selected(false);
     }
     public void Selected(bool isSelected)
@@ -27,5 +30,10 @@ public class Player : MonoBehaviour
     private void OnMouseDown()
     {
         Manager.SetSelectedPlayer(this);
+    }
+
+    public void Move(Vector2 direction)
+    {
+        rb.AddForce(direction * speed);
     }
 }
