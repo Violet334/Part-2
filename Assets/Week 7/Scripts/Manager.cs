@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SocialPlatforms.Impl;
+using TMPro;
 
 public class Manager : MonoBehaviour
 {
+    public static float BallScore = 0;
+    public TextMeshProUGUI score;
     public Slider charge;
     float chargeValue;
     public float maxCharge = 1;
     Vector2 direction;
     public static Player SelectedPlayer { get; private set; }
+    
     public static void SetSelectedPlayer(Player player)
     {
         if(SelectedPlayer != null)
@@ -50,5 +55,6 @@ public class Manager : MonoBehaviour
         {
             direction = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)SelectedPlayer.transform.position).normalized * chargeValue;
         }
+        score.text = BallScore.ToString();
     }
 }
