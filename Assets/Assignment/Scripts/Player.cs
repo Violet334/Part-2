@@ -48,4 +48,10 @@ public class NewBehaviourScript : MonoBehaviour
         //play hurt animation
         animator.SetTrigger("hurt");
     }
+
+    public void Happy(float happy)
+    {
+        happiness += happy;
+        
+    }
 }

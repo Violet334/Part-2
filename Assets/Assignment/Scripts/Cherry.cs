@@ -57,7 +57,7 @@ public class Cherry : MonoBehaviour
     {
         timer += 0.5f * Time.deltaTime;
         float interpolation = contact.Evaluate(timer);
-        if (transform.localScale.z < 0.5f)
+        if (transform.localScale.x < 0.5f)
         {
             Destroy(gameObject);
         }
