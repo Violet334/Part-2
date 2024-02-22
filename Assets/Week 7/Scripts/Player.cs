@@ -26,6 +26,6 @@ public class Player : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Selected(true);
+        Manager.SetSelectedPlayer(this);
     }
 }
