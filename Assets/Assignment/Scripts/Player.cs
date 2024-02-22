@@ -36,7 +36,7 @@ public class NewBehaviourScript : MonoBehaviour
     void Update()
     {
         //update movement from mouse click
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             destination = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
