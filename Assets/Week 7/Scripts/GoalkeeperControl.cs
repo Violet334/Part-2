@@ -10,13 +10,17 @@ public class GoalkeeperControl : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb2 = GetComponent<Rigidbody2D>();
         rb.position = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float distance = Vector3.Distance(transform.position, rb2.position);
+        rb.position = Vector3.Lerp(transform.position, rb2.position, 0.5f);
+        Vector2 direction = rb2.position / transform.position;
+        float degree = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
+        rb.rotation = -degree;
     }
 
 }
